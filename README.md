@@ -28,7 +28,7 @@ When deploying the components inside this repository a Dynatrace App will also b
 
 Here are some short quickstart details to get going as you spin up the codespaces. More specific details are in the link at the bottom of the page.
 
-1) To spin up the environment with GitHub codespaces, go to Codespaces and then select 'New with options' or directly by [clicking here](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=1028024094&skip_quickstart=true)
+1) To spin up the environment with GitHub codespaces, go to Codespaces and then select 'New with options' or directly by [clicking here](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=1045281642&skip_quickstart=true)
 
 You'll need:
  - A Dynatrace tenant endpoint which should look something like 'https://abc12345.live.dynatrace.com' 

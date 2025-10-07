@@ -129,6 +129,8 @@ In order to deploy the Dynatrace app into your tenant when the codespace starts 
 
 More details can be found by following the [instructions here](https://developer.dynatrace.com/develop/deploy-your-app/#deploy-from-a-cicd-pipeline).
 
+The Dynatrace quiz app will be deployed at: https://yourTenantID.apps.dynatrace.com/ui/apps/my.bug.busters/
+
 !!! tip "Let's launch the Codespace"
     Now we are ready to launch the Codespace! You'll need your tenant and the tokens previuosly created from above. When you enter the tenant please enter it without the 'apps' part of the URL. For production tenants -> https://abc12345.live.dynatrace.com and for sprint tenants -> https://abc12345.sprint.dynatracelabs.com.
 
