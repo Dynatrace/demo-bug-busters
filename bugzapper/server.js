@@ -10,7 +10,7 @@ let scores = [];
 let playerStats = [];
 
 // Starting number of bullets fired
-let bulletsfired = 0;
+let firedBullets = 0;
 
 // Middleware
 app.use(express.json());
@@ -73,10 +73,10 @@ app.post('/api/playerStats', (req, res) => {
 
   // Make sure we don't divide by zero
   try {
-    if (bulletsfired === 0) {
+    if (firedBullets === 0) {
       throw new Error("Cannot divide by zero!"); // Throws a new Error object
     }
-    accuracy = Math.max(0, Math.floor(asteroidsDestroyed / bulletsfired * 100));
+    accuracy = Math.max(0, Math.floor(asteroidsDestroyed / firedBullets * 100));
   } catch (error) {
     console.error('Error calculating accuracy:', error);
   }
