@@ -58,4 +58,4 @@ You'll need:
 
 Let's Get Started...
 
-## [🧳🐞 Start the bug finding adventure here!](https://github.com/dynatrace-wwse/bug-busters)
+## [🧳🐞 Start the bug finding adventure here!](https://Dynatrace.github.io/demo-bug-busters/)

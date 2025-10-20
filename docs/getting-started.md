@@ -118,7 +118,7 @@ We will get these two from the Kubernetes App.
 ![Kubernetes Tokens](img/k8s_tokens.png)
 
 ## 3. Create OAuth Client for Automated Dynatrace Quiz App Deployment
-In order to deploy the Dynatrace app into your tenant when the codespace starts up we will need to create an OAuth Client.
+In order to deploy the Dynatrace app into your tenant after the codespace starts up we will need to create an OAuth Client.
 
 1. Go tou your Account Settings and select your desired account.
 2. Navigate to Identity & access management > OAuth clients.
@@ -128,6 +128,8 @@ In order to deploy the Dynatrace app into your tenant when the codespace starts 
 6. Save the Client ID and Client Secret which will be needed when starting the codespace.
 
 More details can be found by following the [instructions here](https://developer.dynatrace.com/develop/deploy-your-app/#deploy-from-a-cicd-pipeline).
+
+To deploy the Dynatrace App to your tenant, ensure that DT_APP_OAUTH_CLIENT_ID and DT_APP_OAUTH_CLIENT_SECRET have been set as environment variables. Then run `deployDynatraceApp` from the codespaces command line.
 
 The Dynatrace quiz app will be deployed at: https://yourTenantID.apps.dynatrace.com/ui/apps/my.bug.busters/
 
