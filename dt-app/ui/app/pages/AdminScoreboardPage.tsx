@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Flex } from '@dynatrace/strato-components/layouts';
 import { Heading, Paragraph } from '@dynatrace/strato-components/typography';
 import { Button } from '@dynatrace/strato-components/buttons';
+import { DataTableV2 } from '@dynatrace/strato-components-preview/tables';
 import { useUserAppStates } from '@dynatrace-sdk/react-hooks';
 
 interface UserResult {
@@ -86,6 +87,99 @@ export const AdminScoreboardPage: React.FC = () => {
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
+  // Memoized column definitions for DataTableV2
+  const columns = useMemo(() => [
+    {
+      id: 'rank',
+      header: 'Rank',
+      accessor: 'rank' as const,
+      width: 80,
+      columnType: 'number' as const,
+      cell: ({ rowIndex }: { rowIndex: number }) => (
+        <DataTableV2.DefaultCell style={{ 
+          fontWeight: 'bold',
+          fontSize: '18px'
+        }}>
+          {getRankDisplay(rowIndex)}
+        </DataTableV2.DefaultCell>
+      )
+    },
+    {
+      id: 'name',
+      header: 'Name',
+      accessor: 'name' as const,
+      width: 180,
+      columnType: 'text' as const,
+      cell: ({ value }: { value: string }) => (
+        <DataTableV2.DefaultCell style={{ 
+          fontWeight: '500', 
+          fontSize: '16px'
+        }}>
+          {value}
+        </DataTableV2.DefaultCell>
+      )
+    },
+    {
+      id: 'email',
+      header: 'Email',
+      accessor: 'email' as const,
+      width: 220,
+      columnType: 'text' as const,
+      cell: ({ value }: { value: string }) => (
+        <DataTableV2.DefaultCell style={{ 
+          fontSize: '14px'
+        }}>
+          {value}
+        </DataTableV2.DefaultCell>
+      )
+    },
+    {
+      id: 'timeRemaining',
+      header: 'Time Left',
+      accessor: 'timeRemaining' as const,
+      width: 120,
+      columnType: 'text' as const,
+      cell: ({ value }: { value: number }) => (
+        <DataTableV2.DefaultCell style={{ 
+          color: '#0366d6',
+          fontSize: '14px',
+          fontWeight: '500'
+        }}>
+          {formatTimeRemaining(value)}
+        </DataTableV2.DefaultCell>
+      )
+    },
+    {
+      id: 'score',
+      header: 'Score',
+      accessor: 'score' as const,
+      width: 120,
+      columnType: 'number' as const,
+      alignment: 'right' as const,
+      cell: ({ value }: { value: number }) => (
+        <DataTableV2.DefaultCell style={{ 
+          fontWeight: 'bold', 
+          color: '#155724',
+          fontSize: '18px'
+        }}>
+          {value} pts
+        </DataTableV2.DefaultCell>
+      )
+    }
+  ], []);
+
+  // Transform data for DataTableV2
+  const tableData = useMemo(() => {
+    return topScores.map((result, index) => ({
+      id: `${result.name}-${result.email}-${result.score}-${index}`,
+      rank: index + 1,
+      name: result.name,
+      email: result.email,
+      timeRemaining: result.timeRemaining,
+      score: result.score
+    }));
+  }, [topScores]);
+
   return (
     <Flex 
       flexDirection="column" 
@@ -139,122 +233,49 @@ export const AdminScoreboardPage: React.FC = () => {
               Total Participants: {topScores.length}
             </Paragraph>
             <Button 
-              onClick={() => refetch()}
+              onClick={() => {
+                // Create CSV content
+                const csvContent = [
+                  'Rank,Name,Email,Time Left,Score',
+                  ...tableData.map((row, index) => 
+                    `${getRankDisplay(index)},"${row.name}","${row.email}",${formatTimeRemaining(row.timeRemaining)},${row.score}`
+                  )
+                ].join('\n');
+                
+                // Download CSV
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'bug-busters-admin-leaderboard.csv';
+                link.click();
+                window.URL.revokeObjectURL(url);
+              }}
               variant="emphasized"
               style={{ 
                 height: '32px',
-                backgroundColor: '#0366d6',
+                backgroundColor: '#2f2f4f',
                 color: '#ffffff',
                 border: 'none',
                 fontWeight: '500'
               }}
             >
-              🔄 Refresh
+              📥 Download CSV
             </Button>
           </Flex>
 
-          {/* Table Header */}
-          <Flex style={{
-            padding: '16px 24px',
-            backgroundColor: '#f1f3f4',
-            borderRadius: '8px 8px 0 0',
-            border: '1px solid #e1e4e8',
-            borderBottom: 'none'
-          }}>
-            <Flex style={{ width: '80px' }}>
-              <Paragraph style={{ fontWeight: 'bold', color: '#24292f', margin: 0 }}>
-                Rank
-              </Paragraph>
-            </Flex>
-            <Flex style={{ width: '180px' }}>
-              <Paragraph style={{ fontWeight: 'bold', color: '#24292f', margin: 0 }}>
-                Name
-              </Paragraph>
-            </Flex>
-            <Flex style={{ width: '220px' }}>
-              <Paragraph style={{ fontWeight: 'bold', color: '#24292f', margin: 0 }}>
-                Email
-              </Paragraph>
-            </Flex>
-            <Flex style={{ width: '120px' }}>
-              <Paragraph style={{ fontWeight: 'bold', color: '#24292f', margin: 0 }}>
-                Time Left
-              </Paragraph>
-            </Flex>
-            <Flex style={{ width: '120px', justifyContent: 'flex-end' }}>
-              <Paragraph style={{ fontWeight: 'bold', color: '#24292f', margin: 0 }}>
-                Score
-              </Paragraph>
-            </Flex>
-          </Flex>
-
-          {/* Table Rows */}
-          <div style={{ 
-            border: '1px solid #e1e4e8',
-            borderRadius: '0 0 8px 8px',
-            overflow: 'hidden'
-          }}>
-            {topScores.map((result, index) => (
-              <Flex 
-                key={`${result.name}-${result.email}-${result.score}-${index}`}
-                style={{
-                  padding: '16px 24px',
-                  backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fa',
-                  borderBottom: index < topScores.length - 1 ? '1px solid #e1e4e8' : 'none'
-                }}
-              >
-                <Flex style={{ width: '80px' }} alignItems="center">
-                  <Paragraph style={{ 
-                    fontWeight: 'bold',
-                    color: getRankColor(index),
-                    margin: 0,
-                    fontSize: '18px'
-                  }}>
-                    {getRankDisplay(index)}
-                  </Paragraph>
-                </Flex>
-                <Flex style={{ width: '180px' }} alignItems="center">
-                  <Paragraph style={{ 
-                    fontWeight: '500', 
-                    color: '#24292f',
-                    margin: 0,
-                    fontSize: '16px'
-                  }}>
-                    {result.name}
-                  </Paragraph>
-                </Flex>
-                <Flex style={{ width: '220px' }} alignItems="center">
-                  <Paragraph style={{ 
-                    color: '#586069',
-                    margin: 0,
-                    fontSize: '14px'
-                  }}>
-                    {result.email}
-                  </Paragraph>
-                </Flex>
-                <Flex style={{ width: '120px' }} alignItems="center">
-                  <Paragraph style={{ 
-                    color: '#0366d6',
-                    margin: 0,
-                    fontSize: '14px',
-                    fontWeight: '500'
-                  }}>
-                    {formatTimeRemaining(result.timeRemaining)}
-                  </Paragraph>
-                </Flex>
-                <Flex style={{ width: '120px', justifyContent: 'flex-end' }} alignItems="center">
-                  <Paragraph style={{ 
-                    fontWeight: 'bold', 
-                    color: '#155724',
-                    fontSize: '18px',
-                    margin: 0
-                  }}>
-                    {result.score} pts
-                  </Paragraph>
-                </Flex>
-              </Flex>
-            ))}
-          </div>
+          <DataTableV2 
+            data={tableData}
+            columns={columns}
+            variant={{
+              rowSeparation: 'zebraStripes',
+              rowDensity: 'default',
+              contained: true
+            }}
+            sortable={true}
+            defaultSortBy={[{ id: 'score', desc: true }]}
+            fullWidth
+          />
         </Flex>
       ) : (
         <Flex 
