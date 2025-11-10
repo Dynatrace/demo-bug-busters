@@ -21,8 +21,8 @@ setLiveDebuggerVersionControlEnv
 
 #deployDynatraceApp
 printInfoSection "Deployment of the Dynatrace App"
-printInfoSection "for deploying the Dynatrace App please make sure you have set DT_APP_OAUTH_CLIENT_ID and DT_APP_OAUTH_CLIENT_SECRET"
-printInfoSection "then call the function 'deployDynatraceApp'"
+printInfo "for deploying the Dynatrace App please make sure you have set DT_APP_OAUTH_CLIENT_ID and DT_APP_OAUTH_CLIENT_SECRET"
+printInfo "then call the function 'deployDynatraceApp'"
 
 finalizePostCreation
 
