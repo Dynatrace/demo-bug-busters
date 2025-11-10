@@ -4,11 +4,11 @@
 [![Davis CoPilot](https://img.shields.io/badge/Davis%20CoPilot-AI%20Powered-purple?logo=dynatrace&logoColor=white)](https://dynatrace.github.io/codespaces-framework/dynatrace-integration/#mcp-server-integration)
 [![dt-badge](https://img.shields.io/badge/Powered_by-DT_Enablement-8A2BE2?logo=dynatrace)](https://dynatrace.github.io/codespaces-framework/)
 [![Downloads](https://img.shields.io/docker/pulls/shinojosa/dt-enablement?logo=docker)](https://hub.docker.com/r/shinojosa/dt-enablement)
-![Integration tests](https://github.com/dynatrace/bug-busters/actions/workflows/integration-tests.yaml/badge.svg)
-[![Version](https://img.shields.io/github/v/release/dynatrace/bug-busters?color=blueviolet)](https://github.com/dynatrace/bug-busters/releases)
-[![Commits](https://img.shields.io/github/commits-since/dynatrace/bug-busters/latest?color=ff69b4&include_prereleases)](https://github.com/dynatrace/bug-busters/graphs/commit-activity)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?color=green)](https://github.com/dynatrace/bug-busters/blob/main/LICENSE)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green)](https://dynatrace.github.io/bug-busters/)
+![Integration tests](https://github.com/dynatrace/demo-bug-busters/actions/workflows/integration-tests.yaml/badge.svg)
+[![Version](https://img.shields.io/github/v/release/dynatrace/demo-bug-busters?color=blueviolet)](https://github.com/dynatrace/demo-bug-busters/releases)
+[![Commits](https://img.shields.io/github/commits-since/dynatrace/demo-bug-busters/latest?color=ff69b4&include_prereleases)](https://github.com/dynatrace/demo-bug-busters/graphs/commit-activity)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?color=green)](https://github.com/dynatrace/demo-bug-busters/blob/main/LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green)](https://dynatrace.github.io/demo-bug-busters/)
 
 ___
 
@@ -22,7 +22,7 @@ As part of the journey, you'll utilize Dynatraces Live Debugger, Logs, and Trace
 When deploying the components inside this repository a Dynatrace App will also be deployed. This app is a quiz app which will ask you a set of multiple choice questions which you need to answer in the shortest time possible to achieve the highest score.
 
 <p align="center">
-    <img src="docs/img/bug-busters.jpg" alt="Bug Busters" width="500"/>
+    <img src="docs/img/demo-bug-busters.jpg" alt="Bug Busters" width="500"/>
 </p>
 
 ## Quickstart
