@@ -22,7 +22,7 @@ As part of the journey, you'll utilize Dynatraces Live Debugger, Logs, and Trace
 When deploying the components inside this repository a Dynatrace App will also be deployed. This app is a quiz app which will ask you a set of multiple choice questions which you need to answer in the shortest time possible to achieve the highest score.
 
 <p align="center">
-    <img src="docs/img/demo-bug-busters.jpg" alt="Bug Busters" width="500"/>
+    <img src="docs/img/bug-busters.jpg" alt="Bug Busters" width="500"/>
 </p>
 
 ## Quickstart
