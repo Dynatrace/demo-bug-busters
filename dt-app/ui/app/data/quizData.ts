@@ -19,9 +19,9 @@ export interface QuizQuestion {
 export const QUIZ_TIMER_INITIAL = 1800; // 30 minutes in seconds
 export const POINTS_PER_CORRECT_ANSWER = 100;
 
-export const DISTRIBUTED_TRACING_URL = "https://{{ENVIRONMENT_ID}}.apps.dynatrace.com/ui/apps/dynatrace.distributedtracing";
-export const LIVE_DEBUGGER_URL = "https://{{ENVIRONMENT_ID}}.apps.dynatrace.com/ui/apps/dynatrace.devobs.debugger";
-export const SERVICES_URL = "https://{{ENVIRONMENT_ID}}.apps.dynatrace.com/ui/apps/dynatrace.services";
+export const DISTRIBUTED_TRACING_URL = "https://${ENVIRONMENT_ID}.apps.dynatrace.com/ui/apps/dynatrace.distributedtracing";
+export const LIVE_DEBUGGER_URL = "https://${ENVIRONMENT_ID}.apps.dynatrace.com/ui/apps/dynatrace.devobs.debugger";
+export const SERVICES_URL = "https://${ENVIRONMENT_ID}.apps.dynatrace.com/ui/apps/dynatrace.services";
 
 export const quizQuestions: QuizQuestion[] = [
   {
