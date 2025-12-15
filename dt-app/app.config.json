@@ -1,5 +1,5 @@
 {
-  "environmentUrl": "https://${ENVIRONMENTID}.apps.dynatrace.com",
+  "environmentUrl": "https://${ENVIRONMENT_ID}.apps.dynatrace.com",
   "app": {
     "name": "Bug Busters",
     "version": "1.0.3",
