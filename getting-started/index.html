@@ -702,7 +702,7 @@ ALLOW<span class="w"> </span>storage:buckets:read<span class="w"> </span>WHERE<s
 <li>Save the Client ID and Client Secret which will be needed when starting the codespace.</li>
 </ol>
 <p>More details can be found by following the <a href="https://developer.dynatrace.com/develop/deploy-your-app/#deploy-from-a-cicd-pipeline">instructions here</a>.</p>
-<p>To deploy the Dynatrace App to your tenant, ensure that DT_APP_OAUTH_CLIENT_ID and DT_APP_OAUTH_CLIENT_SECRET have been set as environment variables. Then run <code>deployDynatraceApp</code> from the codespaces command line.</p>
+<p>To deploy the Dynatrace App to your tenant, ensure that DT_APP_OAUTH_CLIENT_ID and DT_APP_OAUTH_CLIENT_SECRET have been set as environment variables. Also make sure that <code>dt-app/app.config.json</code> contains the correct environment URL for your tenant. Then run <code>deployDynatraceApp</code> from the codespaces command line.</p>
 <p>The Dynatrace quiz app will be deployed at: https://yourTenantID.apps.dynatrace.com/ui/apps/my.bug.busters/</p>
 <div class="admonition tip">
 <p class="admonition-title">Let's launch the Codespace</p>
