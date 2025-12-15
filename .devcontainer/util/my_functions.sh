@@ -23,30 +23,34 @@ deployDynatraceApp(){
   cd dt-app
 
   # get host from tenant URL
-  export DT_HOST=$(echo $DT_TENANT | cut -d'/' -f3 | cut -d'.' -f1)
+  export ENVIRONMENT_ID=$(echo $DT_ENVIRONMENT | cut -d'/' -f3 | cut -d'.' -f1)
 
   # replace host in app config for Dynatrace App Deployment
-  sed "s/ENVIRONMENTID/$DT_HOST/" app.config.json > tmpfile && mv tmpfile app.config.json
+  #sed "s/ENVIRONMENTID/$DT_HOST/" app.config.json > tmpfile && mv tmpfile app.config.json
+  envsubst '$ENVIRONMENT_ID' < app.config.json > tmpfile && mv tmpfile app.config.json
 
-  CODESPACE_NAME=${CODESPACE_NAME}
-  TODO_PORT=30100
-  BUGZAPPER_PORT=30200
+  #CODESPACE_NAME=${CODESPACE_NAME}
+  #TODO_PORT=30100
+  #BUGZAPPER_PORT=30200
 
   printInfo "Updating Quiz questions with codespaces URLs."
 
-  if [ -n "$CODESPACE_NAME" ]; then
-    BUGZAPPER_URL="https://${CODESPACE_NAME}-${BUGZAPPER_PORT}.app.github.dev"
-    TODO_URL="https://${CODESPACE_NAME}-${TODO_PORT}.app.github.dev"
-  else
-    BUGZAPPER_URL="http://localhost:30200"
-    TODO_URL="http://localhost:30100"
-  fi
+  #
+  #if [ -n "$CODESPACE_NAME" ]; then
+  #  BUGZAPPER_URL="https://${CODESPACE_NAME}-${BUGZAPPER_PORT}.app.github.dev"
+  #  TODO_URL="https://${CODESPACE_NAME}-${TODO_PORT}.app.github.dev"
+  #else
+  #  BUGZAPPER_URL="http://localhost:30200"
+  #  TODO_URL="http://localhost:30100"
+  #fi
 
   # Replace placeholders in quizData.ts to embed links in the Dynatrace app
-  sed -e "s|{{BUGZAPPER_URL}}|${BUGZAPPER_URL}|g" \
-    -e "s|{{TODO_URL}}|${TODO_URL}|g" \
-    -e "s|{{ENVIRONMENT_ID}}|${DT_HOST}|g" \
-    ui/app/data/quizData.ts > tmpfile && mv tmpfile ui/app/data/quizData.ts
+  #sed -e "s|{{BUGZAPPER_URL}}|${BUGZAPPER_URL}|g" \
+  #  -e "s|{{TODO_URL}}|${TODO_URL}|g" \
+  #  -e "s|{{ENVIRONMENT_ID}}|${DT_HOST}|g" \
+  #  ui/app/data/quizData.ts > tmpfile && mv tmpfile ui/app/data/quizData.ts
+
+  envsubst '$ENVIRONMENT_ID' < ./ui/app/data/quizData.ts > tmpFile && mv tmpFile ./ui/app/data/quizData.ts
 
 
   printInfo "Installing Dynatrace quiz app dependencies."
