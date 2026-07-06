@@ -25,7 +25,7 @@ jobs:
           echo "Event ${{ github.event_name }}"
           echo "envs" && env
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Add secrets in .env file for running locally with VS Code extension
         run: |
             cd .devcontainer 
