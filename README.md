@@ -24,7 +24,7 @@ When deploying the components inside this repository a Dynatrace App will also b
 <p align="center">
     <img src="docs/img/bug-busters.jpg" alt="Bug Busters" width="500"/>
 </p>
-
+blah blah blah
 ## Quickstart
 
 Here are some short quickstart details to get going as you spin up the codespaces. More specific details are in the link at the bottom of the page.
