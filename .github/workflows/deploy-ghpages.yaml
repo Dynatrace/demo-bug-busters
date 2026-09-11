@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Checkout repository code
       uses: actions/checkout@v7
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v6
       with:
         python-version: '3.x'
     - name: MKDocs - install requirements, build, gh-deploy
